@@ -46,14 +46,16 @@ public class ConsoleChatClient {
 
         while (true) {
 
+
             String message = scanner.nextLine();
-            if (message.endsWith("/leave")) {
-                clientEndPoint.onClose();
-                break;
-            }
             System.out.println(message);
-            clientEndPoint.sendMessage(stringToJsonMessage(roomName, message));
-            log.info(roomName + " " + message);
+            if (clientEndPoint != null) {
+                clientEndPoint.sendMessage(stringToJsonMessage(roomName, message));
+                log.info(roomName + " " + message);
+                if(message.contains("/exit")){
+                    break;
+                }
+            }else break;
         }
     }
 
