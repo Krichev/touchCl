@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 @Log4j
 public class ConsoleChatClient {
+    //make fields private
     static Scanner scanner = new Scanner(System.in, "utf-8");
     static String roomName;
     static String role;
@@ -17,6 +18,7 @@ public class ConsoleChatClient {
 
     public static void main(final String[] args) throws InterruptedException, URISyntaxException {
         System.out.println("to start enter such command [ /create (client or agent) name]");
+        //main method too long,maybe move registration to separate method
         one:
         while (true) {
             while (scanner.hasNext()) {
@@ -24,7 +26,7 @@ public class ConsoleChatClient {
                 if (command.matches("/create [a-z]{5,6} [a-z]*$")) {
                     role = command.split(" ")[1];
                     name = command.split(" ")[2];
-                    roomName = name + "_" + role;
+                    roomName = name + "_" + role;   //why is field name's roomName
                     log.info(command);
                     break one;
                 } else
@@ -49,6 +51,7 @@ public class ConsoleChatClient {
 
             String message = scanner.nextLine();
             System.out.println(message);
+            //clientEndPoint!=null is always true
             if (clientEndPoint != null) {
                 clientEndPoint.sendMessage(stringToJsonMessage(roomName, message));
                 log.info(roomName + " " + message);
